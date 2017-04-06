@@ -9,6 +9,7 @@ library("downloader")   # For downloading and extracting the zip file.
 # Define the paths used by the application.
 dirs <- list(download = file.path(".", "download"))
 downloadZipFile <- file.path(dirs$download, "datasets.zip")
+rawDataFile <- file.path(dirs$download, "summarySCC_PM25.rds")
 
 # Download and unzip...
 if (!file.exists(rawDataFile)) {
