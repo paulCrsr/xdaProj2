@@ -12,16 +12,13 @@ emissionTotals <-
 
 png("plot1.png", width = 800 , height = 600, units="px")
 
-options(scipen=NULL)
-
 with(emissionTotals, 
      barplot(
          total,
          year,
          names.arg=year,
-         ylab ="Tons PM2.5 (million)",
+         ylab ="Tons PM2.5 (millions)",
          main ="Plot1: Total PM2.5 emissions by year for all states")
 )
-
 
 dev.off()
