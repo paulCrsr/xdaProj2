@@ -6,13 +6,22 @@ setwd("/Users/posborne/Coursera/ExploratoryDataAnalysis/wk4/xdaProj2")
 source("loadData.R")
 library(dplyr)
 
+emissionTotals <- 
+    group_by(NEI, year) %>%
+    summarize(total = sum(Emissions)/1e+06)
+
 png("plot1.png", width = 800 , height = 600, units="px")
 
-boxplot(log10(Emissions) ~ year, 
-        data = NEI, 
-        ylab ="log10(Emissions)", 
-        main ="Total emissions by year",
-        pch = 20,
-        cex = 0.5)
+options(scipen=NULL)
+
+with(emissionTotals, 
+     barplot(
+         total,
+         year,
+         names.arg=year,
+         ylab ="Tons PM2.5 (million)",
+         main ="Plot1: Total PM2.5 emissions by year for all states")
+)
+
 
 dev.off()
