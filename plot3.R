@@ -13,16 +13,17 @@ library(ggplot2)
 
 baltimoreCity <- 
     subset(NEI, fips == "24510" & Emissions > 0) %>%
-    mutate(year = as.factor(year))
+    group_by(year, type) %>%
+    summarize(total = sum(Emissions))
 
 png("plot3.png", width = 800 , height = 600, units="px")
 
 g <- 
-    ggplot(baltimoreCity, aes(year, log(Emissions))) +
-    geom_boxplot() +
-    facet_grid(.~type) + 
-    ylab("log(tons PM2.5)") + 
-    ggtitle("Total PM2.5 emission trends by type\nfor Balimore City, Maryland")
+    ggplot(baltimoreCity, aes(year, total, col=type)) +
+    geom_line() +
+    ylab("PM2.5 (tons)") + 
+    ggtitle("Total PM2.5 emission trends by type\nfor Balimore City, Maryland") +
+    theme_bw()
 
 print(g)
 

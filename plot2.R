@@ -12,11 +12,17 @@ baltimoreCity <-
     subset(NEI, 
            fips == "24510" & 
            year %in% c("1999", "2008") & 
-           Emissions > 0)
+           Emissions > 0) %>%
+    group_by(year) %>%
+    summarize(total = sum(Emissions))
 
-boxplot(log10(Emissions) ~ year, 
-        data = baltimoreCity, 
-        ylab = "log(tons PM2.5)", 
-        main = "Plot2: Total PM2.5 emissions change for\nBaltimore City, Maryland")
+with(baltimoreCity, 
+     barplot(
+         total,
+         year,
+         names.arg=year,
+         ylab ="PM2.5 (tons)",
+         main = "Plot2: Total PM2.5 emissions change for\nBaltimore City, Maryland")
+)
 
 dev.off()
