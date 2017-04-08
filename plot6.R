@@ -23,12 +23,12 @@ vehicleEmissions <-
     mutate(year = as.factor(year), fips=ifelse(fips=="24510", "Baltimore City", "Los Angeles County")) %>%
     left_join(SCC, by=c("SCC","SCC"))
 
-# png("plot6.png", width = 800 , height = 600, units="px")
+png("plot6.png", width = 800 , height = 600, units="px")
 
 g <- ggplot(vehicleEmissions, aes(x=year, y=log(Emissions))) +
     geom_boxplot(aes(fill=fips)) +
     labs(x="", y="log(tons PM2.5)") +
-    facet_grid(~EI.Sector) +
+    facet_wrap(~EI.Sector, ) +
     scale_fill_brewer(palette = "Set1") +
     ggtitle("Comparison of PM2.5 emissions due to motor-vehicles\n in Baltimore City and Los Angeles County") +
     ylab("log(tons PM2.5)") +
@@ -37,4 +37,4 @@ g <- ggplot(vehicleEmissions, aes(x=year, y=log(Emissions))) +
 
 print(g)
 
-# dev.off()
+dev.off()
