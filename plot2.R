@@ -8,7 +8,11 @@ library(dplyr)
 
 png("plot2.png", width = 800 , height = 600, units="px")
 
-baltimoreCity <- subset(NEI, fips == "24510" & year %in% c("1999", "2008") & Emissions > 0)
+baltimoreCity <- 
+    subset(NEI, 
+           fips == "24510" & 
+           year %in% c("1999", "2008") & 
+           Emissions > 0)
 
 boxplot(log10(Emissions) ~ year, 
         data = baltimoreCity, 
